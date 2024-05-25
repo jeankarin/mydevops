@@ -1,0 +1,26 @@
+---
+- name: Actualizar paquetes e instalar, configurar y habilitar containerd.io en Ubuntu/Debian
+  hosts: kubernetes
+  become: yes
+  tasks:
+    - name: Actualizar el índice de paquetes
+      apt:
+        update_cache: yes
+
+    - name: Instalar containerd.io
+      apt:
+        name: containerd.io
+        state: present
+        update_cache: yes
+
+    - name: Configurar containerd.io
+      command: containerd config default | sudo tee /etc/containerd/config.toml >/dev/null 2>&1
+
+    - name: Habilitar el uso de cgroups de systemd en containerd.io
+      command: sudo sed -i 's/SystemdCgroup \= false/SystemdCgroup \= true/g' /etc/containerd/config.toml
+
+    - name: Reiniciar containerd
+      systemd:
+        name: containerd
+        state: restarted
+        enabled: yes

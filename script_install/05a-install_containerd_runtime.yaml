@@ -1,0 +1,16 @@
+---
+- name: Instalar paquetes y configurar Docker en Ubuntu/Debian
+  hosts: kubernetes
+  become: yes
+  tasks:
+    - name: Instalar paquetes necesarios
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - curl
+        - gnupg2
+        - software-properties-common
+        - apt-transport-https
+        - ca-certificates
+

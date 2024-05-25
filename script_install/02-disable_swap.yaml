@@ -1,0 +1,11 @@
+---
+- name: Desactivar el Swap y comentar la entrada en /etc/fstab
+  hosts: kubernetes
+  become: yes
+  tasks:
+    - name: Desactivar el Swap
+      command: swapoff -a
+
+    - name: Comentar la entrada de swap 
+      #command: sed -i '/ swap / s/^\(.*\)$/#\1g' /etc/fstab
+      command: sed -i '/\/swap.img/s/^/# /' /etc/fstab

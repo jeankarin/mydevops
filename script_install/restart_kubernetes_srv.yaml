@@ -1,0 +1,7 @@
+---
+- name: Reiniciar servidores
+  hosts: kubernetes
+  become: yes
+  tasks:
+    - name: Reiniciar servidores de kubernetes (esbcnsrv002, esbcnsrv003)
+      reboot:

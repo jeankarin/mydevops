@@ -1,0 +1,13 @@
+---
+- name: Modificar el archivo /etc/hosts
+  hosts: kubernetes
+  become: yes
+  tasks:
+    - name: Agregar hosts al archivo /etc/hosts
+      lineinfile:
+        path: /etc/hosts
+        line: "{{ item }}"
+        insertafter: EOF
+      loop:
+        - "10.0.2.5 esbcnsrv002"
+        - "10.0.2.6 esbcnsrv003"
