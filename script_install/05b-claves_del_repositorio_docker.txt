@@ -1,0 +1,13 @@
+    # No consigo que funcione.
+    #- name: Descargar la clave GPG de Docker
+    #  get_url:
+    #    url: https://download.docker.com/linux/ubuntu/gpg
+    #    dest: /tmp/docker_gpg_key.txt
+
+    #- name: Convertir la clave GPG en el formato adecuado y guardarla
+    #  become: yes
+    #  command: gpg --dearmor /tmp/docker_gpg_key.txt -o /etc/apt/trusted.gpg.d/docker.gpg
+
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmour -o /etc/apt/trusted.gpg.d/docker.gpg
+
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"

@@ -1,0 +1,18 @@
+---
+- name: Ejecutar comandos para configurar módulos
+  hosts: kubernetes
+  become: yes
+  tasks:
+    - name: Configurar módulos en /etc/modules-load.d/containerd.conf
+      command: echo "overlay" | sudo tee -a /etc/modules-load.d/containerd.conf
+      changed_when: false
+
+    - name: Agregar br_netfilter al archivo /etc/modules-load.d/containerd.conf
+      command: echo "br_netfilter" | sudo tee -a /etc/modules-load.d/containerd.conf
+      changed_when: false
+
+    - name: Cargar módulo overlay
+      command: sudo modprobe overlay
+
+    - name: Cargar módulo br_netfilter
+      command: sudo modprobe br_netfilter
