@@ -1,0 +1,14 @@
+# Instalar Kubernetes K3S:
+curl -sfL https://get.k3s.io | bash -
+
+# Archivo de configuración:
+k3s kubectl config view --raw > ~/.config_k3s.yaml
+export=KUBECONFIG=~/.config_k3s.yaml
+
+# Instalamos helm:
+wget https://get.helm.sh/helm-v3.14.2-linux-amd64.tar.gz
+tar xvf helm-v3.14.2-linux-amd64.tar.gz
+cd linux-amd64
+chmod a+x helm
+mv helm /usr/local/bin
+
