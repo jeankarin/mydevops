@@ -1,0 +1,21 @@
+---
+- name: Deploy MariadDB
+  hosts: esbcnsrv001
+  become: yes
+
+  tasks:
+    - name: Create directory for Docker Compose file
+      file:
+        path: /opt/stacks
+        state: directory
+        mode: '0755'
+    
+    - name: Copy Docker Compose file to server
+      copy:
+        src: ./docker-compose.yaml
+        dest: /opt/stacks/docker-compose.yaml
+    
+    - name: Launch MariaDB container using Docker Compose
+      command: docker stack deploy -c docker-compose.yaml mariadb_stack
+      args:
+        chdir: /opt/stacks
