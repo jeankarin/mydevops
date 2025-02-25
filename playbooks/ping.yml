@@ -1,0 +1,7 @@
+---
+- name: Hacer ping a todas las máquinas
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: Enviar ping a los servidores
+      ansible.builtin.ping:
