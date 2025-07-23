@@ -1,0 +1,5 @@
+# Lo pongo aparte porque si tengo diferentes pods, al hacer un kubectl apply, me lo borra TODO, incluido otros pods.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: databases

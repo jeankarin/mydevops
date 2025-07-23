@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-deployment
+  namespace: databases
+  labels:
+    app: postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgresql
+          image: postgres:15-alpine
+          env:
+          - name: POSTGRES_USER
+            value: "admin"
+          - name: POSTGRES_PASSWORD
+            value: "Inicio15"  # ¡Cambia esto en producción!
+          - name: POSTGRES_DB
+            value: "mydatabase"
+          ports:
+          - containerPort: 5432
+          volumeMounts:
+          - name: postgresql-data
+            mountPath: /var/lib/postgresql/data
+          #resources:
+          #  requests:
+          #    memory: "512Mi"
+          #    cpu: "500m"
+          #  limits:
+          #    memory: "1Gi"
+          #    cpu: "1"
+      volumes:
+        - name: postgresql-data
+          persistentVolumeClaim:
+            claimName: postgres-pvc  # Asegúrate de crear este PVC primero

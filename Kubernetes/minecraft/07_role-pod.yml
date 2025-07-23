@@ -1,0 +1,18 @@
+# Podemos buscar la info por Kubernetes roles RBAC
+# https://kubernetes.io/docs/reference/access-authn-authz/rbac/
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: minecraft
+  name: pod-reader
+rules:
+- apiGroups: [""] # "" indicates the core API group
+  resources: ["pods", "pods/log"]
+  verbs: ["get", "watch", "list"]
+- apiGroups: ["apps"] # "" indicates the core API group
+  resources: ["deployments"]
+  verbs: ["get", "watch", "list"]
+- apiGroups: [""] # "" indicates the core API group
+  resources: ["services"]
+  verbs: ["get", "watch", "list"]
