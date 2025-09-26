@@ -1,0 +1,19 @@
+# documentación (leer para poder instalar en otro namespace):
+https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner
+
+# add REPO:
+helm repo add nfs-subdir-external-provisioner https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
+
+helm install nfs-subdir-external-provisioner nfs-subdir-external-provisioner/nfs-subdir-external-provisioner \
+  --namespace storage \
+  --create-namespace \
+  --set nfs.server=192.168.122.10 \
+  --set nfs.path=/mnt/share1
+
+# Si pongo el namespace no monta el rescurso!!
+
+ # BUENO!
+ 
+ helm install nfs-subdir-external-provisioner nfs-subdir-external-provisioner/nfs-subdir-external-provisioner \
+  --set nfs.server=192.168.122.10 \
+  --set nfs.path=/serveis
